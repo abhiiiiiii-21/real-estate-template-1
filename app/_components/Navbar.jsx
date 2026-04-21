@@ -61,6 +61,7 @@ const DropdownMenu = ({ items, isOpen }) => {
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const navRef = useRef(null)
 
   useEffect(() => {
@@ -73,6 +74,18 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const toggleDropdown = (name) => {
     setActiveDropdown((prev) => (prev === name ? null : name))
   }
@@ -80,7 +93,9 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className="absolute top-0 left-0 right-0 z-[100] py-4 bg-gradient-to-b from-black/25 via-black/8 to-transparent"
+      className={`absolute top-0 left-0 right-0 z-[100] py-4 bg-gradient-to-b from-black/25 via-black/8 to-transparent transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
+        isScrolled ? '-translate-y-full' : 'translate-y-0'
+      }`}
       id="main-navbar"
     >
       <div className="max-w-[1280px] mx-auto px-10 flex items-center justify-between h-12 max-md:px-5">

@@ -139,7 +139,7 @@ const Hero = () => {
           {/* Building — parallax: rises up over text on scroll */}
           <div
             ref={buildingRef}
-            className="absolute bottom-[-25%] left-0 right-0 mx-auto z-20 pointer-events-none w-[85%] max-w-[750px] will-change-transform"
+            className="absolute top-[58%] left-0 right-0 mx-auto z-40 pointer-events-none w-[95%] max-w-[1150px] will-change-transform"
           >
             <Image
               src="/Hero/house.webp"
@@ -148,6 +148,17 @@ const Hero = () => {
               height={900}
               className="w-full h-auto"
               priority
+            />
+          </div>
+
+          {/* Smoke effect at the bottom */}
+          <div className="absolute bottom-0 left-0 right-0 z-50 pointer-events-none w-full mix-blend-screen">
+            <Image
+              src="/Hero/smoke.webp"
+              alt="Smoke overlay"
+              width={1920}
+              height={800}
+              className="w-full h-[35vh] sm:h-[45vh] object-cover object-bottom"
             />
           </div>
 
