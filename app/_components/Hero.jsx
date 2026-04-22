@@ -3,59 +3,86 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import Navbar from './Navbar'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Hero = () => {
-  const sectionRef = useRef(null)
-  const buildingRef = useRef(null)
+  const rootRef = useRef(null)
+  const houseRef = useRef(null)
   const contentRef = useRef(null)
   const cloudLeftRef = useRef(null)
   const cloudRightRef = useRef(null)
+  const smokeRef = useRef(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      const vh = window.innerHeight
-
-      // Building rises up as you scroll (moves faster than scroll)
-      if (buildingRef.current) {
-        const buildingTranslate = scrollY * -0.5
-        buildingRef.current.style.transform = `translateY(${buildingTranslate}px)`
+    const ctx = gsap.context(() => {
+      const baseTrigger = {
+        trigger: rootRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.6,
       }
 
-      // Text content moves up slower / stays, creating depth
-      if (contentRef.current) {
-        const contentTranslate = scrollY * 0.15
-        contentRef.current.style.transform = `translateY(${contentTranslate}px)`
-        // Fade out text as building covers it
-        const opacity = Math.max(0, 1 - scrollY / (vh * 0.5))
-        contentRef.current.style.opacity = opacity
-      }
+      // House — rises upward and scales slightly on scroll
+      gsap.to(houseRef.current, {
+        yPercent: -20,
+        scale: 1.06,
+        ease: 'none',
+        scrollTrigger: baseTrigger,
+      })
 
-      // Clouds drift outward slightly
-      if (cloudLeftRef.current) {
-        const cloudShift = scrollY * -0.12
-        cloudLeftRef.current.style.transform = `translateX(${cloudShift}px)`
-      }
-      if (cloudRightRef.current) {
-        const cloudShift = scrollY * 0.12
-        cloudRightRef.current.style.transform = `scaleX(-1) translateX(${cloudShift}px)`
-      }
-    }
+      // Content — drifts down, shrinks, fades out before midpoint
+      gsap.to(contentRef.current, {
+        yPercent: 8,
+        scale: 0.94,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+          ...baseTrigger,
+          end: '45% top',
+          scrub: 0.4,
+        },
+      })
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+      // Cloud left — drifts further left
+      gsap.to(cloudLeftRef.current, {
+        xPercent: -18,
+        ease: 'none',
+        scrollTrigger: baseTrigger,
+      })
+
+      // Cloud right — drifts further right
+      gsap.to(cloudRightRef.current, {
+        xPercent: 18,
+        ease: 'none',
+        scrollTrigger: baseTrigger,
+      })
+
+      // Smoke — rises from below
+      gsap.fromTo(
+        smokeRef.current,
+        { yPercent: 50 },
+        {
+          yPercent: -30,
+          ease: 'none',
+          scrollTrigger: baseTrigger,
+        }
+      )
+    }, rootRef)
+
+    return () => ctx.revert()
   }, [])
 
   return (
-    <main>
-      {/* Wrapper needs enough height to allow scrolling */}
+    <section ref={rootRef} id="hero-section">
+      {/* Scroll-height wrapper — 200vh gives the scroll room for parallax */}
       <div className="relative" style={{ height: '200vh' }}>
-        <section
-          ref={sectionRef}
-          className="sticky top-0 h-screen w-full overflow-hidden"
-        >
+        {/* Sticky viewport — locks the scene while scroll drives animations */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
 
-          {/* Background Sky */}
+          {/* ── Sky Background ── */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/Hero/bg.webp"
@@ -66,105 +93,144 @@ const Hero = () => {
             />
           </div>
 
-          {/* Navbar */}
-          <div className="relative z-50">
+          {/* ── House / Building ── */}
+          <div className="absolute left-0 right-0 z-[15] flex justify-center pointer-events-none" style={{ top: '52%' }}>
+            <div
+              ref={houseRef}
+              className="will-change-transform"
+              style={{ width: 'min(80%, 950px)' }}
+            >
+              <Image
+                src="/Hero/house.webp"
+                alt="Premium real estate building"
+                width={3840}
+                height={3416}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 75vw"
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* ── Cloud Left ── */}
+          <div
+            ref={cloudLeftRef}
+            className="absolute z-[20] pointer-events-none will-change-transform"
+            style={{ top: '25%', left: '-8%', width: '48%', maxWidth: '760px' }}
+          >
+            <Image
+              src="/Hero/cloud.webp"
+              alt=""
+              width={2248}
+              height={954}
+              sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 33vw"
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* ── Cloud Right (mirrored) ── */}
+          <div
+            ref={cloudRightRef}
+            className="absolute z-[20] pointer-events-none will-change-transform"
+            style={{ top: '25%', right: '-8%', width: '48%', maxWidth: '760px' }}
+          >
+            <div style={{ transform: 'scaleX(-1)' }}>
+              <Image
+                src="/Hero/cloud.webp"
+                alt=""
+                width={2248}
+                height={954}
+                sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 33vw"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+
+          {/* ── Smoke Effect ── */}
+          <div
+            ref={smokeRef}
+            className="absolute left-0 right-0 z-[22] pointer-events-none will-change-transform"
+            style={{ bottom: '-5%' }}
+          >
+            <Image
+              src="/Hero/smoke.webp"
+              alt=""
+              width={3840}
+              height={1240}
+              sizes="100vw"
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* ── Navbar ── */}
+          <div className="relative z-[50]">
             <Navbar />
           </div>
 
-          {/* Hero Content — positioned in upper-center area */}
+          {/* ── Hero Content ── */}
           <div
             ref={contentRef}
-            className="relative z-30 flex flex-col items-center text-center px-6 mt-[20vh] md:mt-[28vh] will-change-transform"
+            className="relative z-[10] flex flex-col items-center text-center px-6 will-change-transform"
+            style={{ marginTop: '30vh' }}
           >
-            <h1 className="text-[clamp(2.8rem,7vw,7rem)] font-extrabold leading-[0.93] tracking-[-0.03em] text-black/85 mb-5 max-w-6xl">
+            <h1
+              className="text-black font-extrabold leading-[0.93] tracking-[-0.03em] mb-5 max-w-5xl text-8xl">
               Find What Moves You
             </h1>
 
-            <p className="text-base md:text-lg text-black/50 mb-8 max-w-xl tracking-[-0.01em]">
-              Expert agents.{' '}
-              <span className="font-semibold text-black/70">Real guidance.</span>{' '}
-              A clear path to find what&apos;s next.
+            <p
+              className="text-black text-base md:text-lg mb-8 max-w-xl tracking-[-0.01em]">
+              Expert agents. Real guidance. A clear path to find what&apos;s next.
             </p>
 
             <Link
               href="/properties"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-black/85 text-white text-sm font-medium rounded-full no-underline transition-all duration-300 hover:bg-black hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-black/85 text-white text-sm font-medium rounded-full no-underline transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] tracking-[0.01em] hover:bg-black hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] hover:-translate-y-0.5 active:translate-y-0"
+              id="hero-find-properties"
             >
-              Find Properties
+              <span>Find Properties</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
                 width="16"
                 height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5"
               >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
+                <path
+                  fill="currentColor"
+                  d="m20.78 12.531-6.75 6.75a.75.75 0 1 1-1.06-1.061l5.47-5.47H3.75a.75.75 0 1 1 0-1.5h14.69l-5.47-5.469a.75.75 0 1 1 1.06-1.061l6.75 6.75a.75.75 0 0 1 0 1.061"
+                />
               </svg>
             </Link>
           </div>
 
-          {/* Cloud — left side */}
-          <div
-            ref={cloudLeftRef}
-            className="absolute top-[26%] left-[-10%] z-40 pointer-events-none w-[55%] max-w-[750px] will-change-transform"
-          >
-            <Image
-              src="/Hero/cloud.webp"
-              alt=""
-              width={800}
-              height={300}
-              className="w-full h-auto"
-            />
-          </div>
+        </div>
+      </div>
 
-          {/* Cloud — right side */}
-          <div
-            ref={cloudRightRef}
-            className="absolute top-[25%] right-[-15%] z-40 pointer-events-none w-[55%] max-w-[750px] scale-x-[-1] will-change-transform"
-          >
-            <Image
-              src="/Hero/cloud.webp"
-              alt=""
-              width={800}
-              height={300}
-              className="w-full h-auto"
-            />
-          </div>
-
-          {/* Building — parallax: rises up over text on scroll */}
-          <div
-            ref={buildingRef}
-            className="absolute top-[58%] left-0 right-0 mx-auto z-40 pointer-events-none w-[95%] max-w-[1150px] will-change-transform"
-          >
-            <Image
-              src="/Hero/house.webp"
-              alt="Premium real estate building"
-              width={1200}
-              height={900}
-              className="w-full h-auto"
-              priority
-            />
-          </div>
-
-          {/* Smoke effect at the bottom */}
-          <div className="absolute bottom-0 left-0 right-0 z-50 pointer-events-none w-full mix-blend-screen">
+      {/* ── Overlap transition to next section ── */}
+      <div className="relative" style={{ marginTop: '-20vh', zIndex: 30 }}>
+        <div className="relative overflow-hidden">
+          <div className="pointer-events-none relative z-[1]">
             <Image
               src="/Hero/smoke.webp"
-              alt="Smoke overlay"
-              width={1920}
-              height={800}
-              className="w-full h-[35vh] sm:h-[45vh] object-cover object-bottom"
+              alt=""
+              width={3840}
+              height={1240}
+              sizes="100vw"
+              className="w-full h-auto"
             />
           </div>
-
-        </section>
+          <div
+            className="absolute inset-0 z-[2]"
+            style={{
+              background:
+                'linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.6) 35%, #0a0a0a 100%)',
+            }}
+          />
+        </div>
       </div>
-    </main>
+    </section>
   )
 }
 

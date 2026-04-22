@@ -26,3 +26,40 @@ body {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
+/* ── Hero CTA Button ── */
+.hero-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: rgba(0, 0, 0, 0.88);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+
+.hero-cta-button:hover {
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+.hero-cta-button:active {
+  transform: translateY(0);
+}
+
+.hero-cta-arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-cta-button:hover .hero-cta-arrow {
+  transform: translateX(3px);
+}
+
