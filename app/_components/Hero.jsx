@@ -25,10 +25,26 @@ const Hero = () => {
         scrub: 0.6,
       }
 
-      // House — rises upward and scales slightly on scroll
+      // House — entrance animation
+      const houseImg = houseRef.current.querySelector('img')
+      if (houseImg) {
+        gsap.from(houseImg, {
+          opacity: 0,
+          duration: 0.6,
+          delay: 0.2,
+        })
+        gsap.from(houseImg, {
+          yPercent: 10,
+          duration: 3,
+          ease: 'expo.out',
+          delay: 0.2,
+        })
+      }
+
+      // House — rises upward and scales heavily on scroll
       gsap.to(houseRef.current, {
-        yPercent: -20,
-        scale: 1.06,
+        yPercent: -40,
+        scale: 1.3,
         ease: 'none',
         scrollTrigger: baseTrigger,
       })
@@ -94,11 +110,11 @@ const Hero = () => {
           </div>
 
           {/* ── House / Building ── */}
-          <div className="absolute left-0 right-0 z-[15] flex justify-center pointer-events-none" style={{ top: '52%' }}>
+          <div className="absolute left-0 right-0 z-[15] flex justify-center pointer-events-none" style={{ top: '59%' }}>
             <div
               ref={houseRef}
               className="will-change-transform"
-              style={{ width: 'min(80%, 950px)' }}
+              style={{ width: 'min(100%, 1400px)' }}
             >
               <Image
                 src="/Hero/house.webp"
