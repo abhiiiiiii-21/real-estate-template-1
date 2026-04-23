@@ -21,7 +21,7 @@ const Hero = () => {
       const baseTrigger = {
         trigger: rootRef.current,
         start: 'top top',
-        end: 'bottom top',
+        end: '67% top',
         scrub: 0.6,
       }
 
@@ -57,7 +57,7 @@ const Hero = () => {
         ease: 'none',
         scrollTrigger: {
           ...baseTrigger,
-          end: '45% top',
+          end: '30% top',
           scrub: 0.4,
         },
       })
@@ -94,7 +94,7 @@ const Hero = () => {
   return (
     <section ref={rootRef} id="hero-section">
       {/* Scroll-height wrapper — 200vh gives the scroll room for parallax */}
-      <div className="relative" style={{ height: '200vh' }}>
+      <div className="relative" style={{ height: '300vh' }}>
         {/* Sticky viewport — locks the scene while scroll drives animations */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
@@ -225,27 +225,7 @@ const Hero = () => {
       </div>
 
       {/* ── Overlap transition to next section ── */}
-      <div className="relative" style={{ marginTop: '-20vh', zIndex: 30 }}>
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none relative z-[1]">
-            <Image
-              src="/Hero/smoke.webp"
-              alt=""
-              width={3840}
-              height={1240}
-              sizes="100vw"
-              className="w-full h-auto"
-            />
-          </div>
-          <div
-            className="absolute inset-0 z-[2]"
-            style={{
-              background:
-                'linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.6) 35%, #0a0a0a 100%)',
-            }}
-          />
-        </div>
-      </div>
+
     </section>
   )
 }
