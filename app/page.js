@@ -1,7 +1,9 @@
 import About from "./_components/About";
+import CTA from "./_components/CTA";
 import FeaturedProperties from "./_components/FeaturedProperties";
 import Hero from "./_components/Hero";
 import Procedure from "./_components/Procedure";
+import Testimonial from "./_components/Testimonial";
 
 
 export default function Home() {
@@ -11,6 +13,8 @@ export default function Home() {
      <About/>
      <FeaturedProperties />
      <Procedure/>
+     <Testimonial/>
+     <CTA/>
     </div>
   );
 }
