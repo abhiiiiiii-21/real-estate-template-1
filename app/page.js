@@ -1,6 +1,7 @@
 import About from "./_components/About";
 import FeaturedProperties from "./_components/FeaturedProperties";
 import Hero from "./_components/Hero";
+import Procedure from "./_components/Procedure";
 
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
      <Hero />
      <About/>
      <FeaturedProperties />
+     <Procedure/>
     </div>
   );
 }

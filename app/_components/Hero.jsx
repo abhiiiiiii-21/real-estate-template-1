@@ -201,17 +201,24 @@ const Hero = () => {
 
             <Link
               href="/properties"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-black/85 text-white text-sm font-medium rounded-full no-underline transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] tracking-[0.01em] hover:bg-black hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] hover:-translate-y-0.5 active:translate-y-0"
+              className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-black/85 text-white text-sm font-medium rounded-full no-underline transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] tracking-[0.01em] hover:bg-black"
               id="hero-find-properties"
             >
-              <span>Find Properties</span>
+              <div className="relative overflow-hidden leading-tight">
+                <span 
+                  className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full" 
+                  data-text="Find Properties"
+                >
+                  Find Properties
+                </span>
+              </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 width="16"
                 height="16"
-                className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5"
+                className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
               >
                 <path
                   fill="currentColor"
