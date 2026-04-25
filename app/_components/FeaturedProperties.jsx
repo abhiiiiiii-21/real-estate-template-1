@@ -244,6 +244,7 @@ const FeaturedProperties = () => {
 
     return (
         <section
+            id="properties"
             ref={sectionRef}
             className="relative overflow-hidden bg-[#151717]"
             style={{ minHeight: '100vh' }}

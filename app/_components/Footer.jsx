@@ -2,11 +2,22 @@
 import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLenis } from 'lenis/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Footer = () => {
     const containerRef = useRef(null)
+    const lenis = useLenis()
+
+    const handleScroll = (e, href) => {
+        if (!href || href === '#') return
+        e.preventDefault()
+        lenis?.scrollTo(href, {
+            duration: 2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Expo ease for that "Awwwards" feel
+        })
+    }
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -26,7 +37,7 @@ const Footer = () => {
     }, [])
 
     return (
-        <footer ref={containerRef} className="bg-[#151717] pt-24 pb-8 px-8 md:px-12 lg:px-16 overflow-hidden">
+        <footer ref={containerRef} className="bg-[#151717] pt-24 pb-8 px-8 md:px-12 lg:px-16 overflow-hidden font-inter">
             <div className="max-w-[1400px] mx-auto">
 
                 {/* Top Section */}
@@ -34,7 +45,7 @@ const Footer = () => {
 
                     {/* Left Column - Subscribe & Contact */}
                     <div className="w-full lg:w-[45%]">
-                        <h3 className="text-white text-2xl font-medium mb-8">Subscribe to our Newsletter!</h3>
+                        <h3 className="text-white text-2xl font-medium mb-8 font-playfair-display">Subscribe to our Newsletter!</h3>
 
                         <div className="relative border-b border-white/20 pb-3 mb-16 group">
                             <input
@@ -75,17 +86,27 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-16 lg:gap-32 mt-20 lg:mt-0">
+                    <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-16 lg:gap-32 mt-16 lg:mt-0">
                         <div className="flex flex-col gap-5">
-                            {['Search','Properties', 'Testimonials', 'About Us'].map((link) => (
-                                <a key={link} href="#" className="group text-white text-xl font-medium w-fit">
+                            {[
+                                { name: 'Amenities', href: '#' },
+                                { name: 'Properties', href: '#properties' },
+                                { name: 'Testimonials', href: '#testimonials' },
+                                { name: 'About', href: '#about' }
+                            ].map((link) => (
+                                <a 
+                                    key={link.name} 
+                                    href={link.href} 
+                                    onClick={(e) => handleScroll(e, link.href)}
+                                    className="group text-white text-xl font-normal w-fit"
+                                >
                                     <div className="relative overflow-hidden leading-tight">
-                                      <span
-                                        className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full"
-                                        data-text={link}
-                                      >
-                                        {link}
-                                      </span>
+                                        <span
+                                            className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full"
+                                            data-text={link.name}
+                                        >
+                                            {link.name}
+                                        </span>
                                     </div>
                                 </a>
                             ))}
@@ -97,12 +118,12 @@ const Footer = () => {
                             ].map((link) => (
                                 <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="group text-white/80 text-sm w-fit">
                                     <div className="relative overflow-hidden leading-tight">
-                                      <span
-                                        className="block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full group-hover:text-white"
-                                        data-text={link.name}
-                                      >
-                                        {link.name}
-                                      </span>
+                                        <span
+                                            className="block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full group-hover:text-white"
+                                            data-text={link.name}
+                                        >
+                                            {link.name}
+                                        </span>
                                     </div>
                                 </a>
                             ))}
@@ -112,8 +133,8 @@ const Footer = () => {
                 </div>
 
                 {/* Huge Text Section */}
-                <div className="mt-24 md:mt-32 w-full flex justify-start">
-                    <h1 className="text-[14vw] sm:text-[16vw] lg:text-[15.5vw] leading-[0.75] font-black text-white tracking-tighter overflow-hidden flex">
+                <div className="mt-6 md:mt-20 w-full flex justify-start">
+                    <h1 className="text-[14vw] sm:text-[16vw] lg:text-[15.5vw] leading-[0.75] font-black text-white overflow-hidden flex font-playfair-display pb-4">
                         {"WEBSUAL".split('').map((char, index) => (
                             <span key={index} className="footer-letter inline-block translate-y-[120%]">
                                 {char}
@@ -131,12 +152,12 @@ const Footer = () => {
                         ].map((link) => (
                             <a key={link} href="#" className="group text-white/40 text-[11px] w-fit">
                                 <div className="relative overflow-hidden leading-tight">
-                                  <span
-                                    className="block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full group-hover:text-white"
-                                    data-text={link}
-                                  >
-                                    {link}
-                                  </span>
+                                    <span
+                                        className="block transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full group-hover:text-white"
+                                        data-text={link}
+                                    >
+                                        {link}
+                                    </span>
                                 </div>
                             </a>
                         ))}

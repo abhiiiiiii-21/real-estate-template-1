@@ -11,10 +11,31 @@ const CTA = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo('.cta-element',
-                { y: 40, opacity: 0 },
+            // Heading Lines Reveal
+            gsap.fromTo('.cta-title-line',
+                { yPercent: 110 },
                 {
-                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+                    yPercent: 0,
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: 'power4.out',
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            )
+
+            // Button Fade Up
+            gsap.fromTo('.cta-button-fade',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    delay: 0.5,
+                    ease: 'power3.out',
                     scrollTrigger: {
                         trigger: containerRef.current,
                         start: 'top 80%',
@@ -58,22 +79,26 @@ const CTA = () => {
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto">
-                <h2 className="cta-element text-white text-6xl leading-[1.05] tracking-tight mb-6">
-                    The Right Home Exists. Let's Find Yours.
+                <h2 className="text-white text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-8 font-playfair-display">
+                    {["The Right Home Exists.", "Let's Find Yours."].map((line, idx) => (
+                        <div key={idx} className="overflow-hidden py-4 -my-4">
+                            <span className="cta-title-line block">{line}</span>
+                        </div>
+                    ))}
                 </h2>
 
 
-                <div className="cta-element mt-8">
+                <div className="cta-button-fade mt-4">
                     <button
                         type="button"
-                        className="group hero-cta-button inline-flex items-center gap-2.5 !bg-white !text-black px-8 py-4 rounded-full transition-transform hover:scale-[1.02]"
+                        className="group hero-cta-button inline-flex items-center gap-2.5 !bg-white !text-black px-10 py-5 rounded-full transition-transform hover:scale-[1.02] font-medium"
                         aria-haspopup="dialog"
                         aria-expanded="false"
                         data-state="closed"
                     >
-                        <div className="relative overflow-hidden leading-tight font-medium">
+                        <div className="relative overflow-hidden leading-tight">
                             <span
-                                className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full"
+                                className="font-inter block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full"
                                 data-text="Book a Visit"
                             >
                                 Book a Visit

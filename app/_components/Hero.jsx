@@ -41,6 +41,45 @@ const Hero = () => {
         })
       }
 
+      // Clouds — entrance animation
+      [cloudLeftRef, cloudRightRef].forEach((ref, idx) => {
+        const cloudImg = ref.current.querySelector('img')
+        if (cloudImg) {
+          const isRight = idx === 1
+          gsap.from(cloudImg, {
+            opacity: 0,
+            yPercent: 15,
+            duration: isRight ? 3.5 : 2.5,
+            ease: 'power3.out',
+            delay: isRight ? 0.5 : 0.3
+          })
+        }
+      })
+
+      // Content Entrance Reveal
+      gsap.from('.hero-title-line', {
+        yPercent: 100,
+        stagger: 0.1,
+        duration: 1.2,
+        ease: 'power4.out',
+        delay: 0.6
+      })
+
+      gsap.from('.hero-desc-line', {
+        yPercent: 100,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.9
+      })
+
+      gsap.from('.hero-cta-reveal', {
+        y: 20,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 1.1
+      })
+
       // House — rises upward and scales heavily on scroll
       gsap.to(houseRef.current, {
         yPercent: -40,
@@ -190,42 +229,41 @@ const Hero = () => {
             style={{ marginTop: '30vh' }}
           >
             <h1
-              className="text-black font-extrabold leading-[0.93] tracking-[-0.03em] mb-5 max-w-5xl text-8xl">
-              Find What Moves You
+              className="text-black mb-5 max-w-7xl text-8xl font-playfair-display font-semibold">
+              <div className="overflow-hidden py-2 -my-2">
+                <span className="hero-title-line block">Find What Moves You</span>
+              </div>
             </h1>
 
             <p
-              className="text-black text-base md:text-lg mb-8 max-w-xl tracking-[-0.01em]">
-              Expert agents. Real guidance. A clear path to find what&apos;s next.
-            </p>
-
-            <Link
-              href="/properties"
-              className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-black/85 text-white text-sm font-medium rounded-full no-underline transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] tracking-[0.01em] hover:bg-black"
-              id="hero-find-properties"
-            >
-              <div className="relative overflow-hidden leading-tight">
-                <span 
-                  className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full" 
-                  data-text="Find Properties"
-                >
-                  Find Properties
+              className="text-black text-base md:text-lg mb-8 max-w-xl tracking-[-0.01em] font-inter">
+              <div className="overflow-hidden py-1 -my-1">
+                <span className="hero-desc-line block">
+                  Expert agents. Real guidance. A clear path to find what&apos;s next.
                 </span>
               </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
-              >
-                <path
-                  fill="currentColor"
-                  d="m20.78 12.531-6.75 6.75a.75.75 0 1 1-1.06-1.061l5.47-5.47H3.75a.75.75 0 1 1 0-1.5h14.69l-5.47-5.469a.75.75 0 1 1 1.06-1.061l6.75 6.75a.75.75 0 0 1 0 1.061"
-                />
-              </svg>
-            </Link>
+            </p>
+
+            <div className="hero-cta-reveal">
+              <Link
+                href="#properties"
+                className="group hero-cta-button inline-flex items-center gap-2.5 font-inter transition-transform hover:scale-[1.02] no-underline"
+                id="hero-find-properties">
+                <div className="relative overflow-hidden leading-tight font-inter">
+                  <span 
+                    className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full" 
+                    data-text="Find Properties"
+                  >
+                    Find Properties
+                  </span>
+                </div>
+                <span className="hero-cta-arrow transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4 h-4">
+                    <path fill="currentColor" d="m20.78 12.531-6.75 6.75a.75.75 0 1 1-1.06-1.061l5.47-5.47H3.75a.75.75 0 1 1 0-1.5h14.69l-5.47-5.469a.75.75 0 1 1 1.06-1.061l6.75 6.75a.75.75 0 0 1 0 1.061"></path>
+                  </svg>
+                </span>
+              </Link>
+            </div>
           </div>
 
         </div>

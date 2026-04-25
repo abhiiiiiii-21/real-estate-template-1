@@ -2,6 +2,9 @@
 import Image from 'next/image'
 import React, { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const reviews = [
   {
@@ -51,6 +54,9 @@ const Testimonial = () => {
   const containerRef = useRef(null)
   const isInitialRender = useRef(true)
   const prevIndex = useRef(0)
+  const imageWrapRef = useRef(null)
+  const imageRef = useRef(null)
+  const headingRef = useRef(null)
 
   useEffect(() => {
     const allReviews = gsap.utils.toArray('.testimonial-text-wrapper', containerRef.current)
@@ -88,28 +94,103 @@ const Testimonial = () => {
     prevIndex.current = activeIndex
   }, [activeIndex])
 
+  useEffect(() => {
+    if (imageWrapRef.current && imageRef.current) {
+      // clip-path reveal (left to right)
+      gsap.fromTo(
+        imageWrapRef.current,
+        { clipPath: 'inset(0% 100% 0% 0%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.2,
+          ease: 'power4.inOut',
+          scrollTrigger: {
+            trigger: imageWrapRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+
+      // continuous parallax scale
+      gsap.fromTo(
+        imageRef.current,
+        { scale: 1.4 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: imageWrapRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        }
+      )
+    }
+
+    // Heading text reveal
+    if (headingRef.current) {
+      gsap.fromTo(headingRef.current, 
+        { clipPath: 'inset(0% 100% 0% 0%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: 'top 90%',
+            end: 'top 40%',
+            scrub: 1,
+          },
+        }
+      )
+    }
+  }, [])
+
   return (
-    <section className="bg-[#151717] py-24 md:py-32">
+    <section id="testimonials" className="bg-[#151717] py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-8 md:px-12" ref={containerRef}>
         
         {/* Header */}
-        <h2 className="text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-tight mb-16 md:mb-24">
-          <span className="text-white font-playfair-display">Real Homes. Real Stories.</span>
+        <h2 className="text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-tight mb-16 md:mb-24 relative inline-block">
+          {/* Base Layer (Grey) */}
+          <span className="text-white/20 font-playfair-display">
+            Real Homes. Real Stories.
+          </span>
+          {/* Reveal Layer (White) */}
+          <span 
+            ref={headingRef}
+            className="text-white font-playfair-display absolute inset-0 whitespace-nowrap"
+            style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
+            aria-hidden="true"
+          >
+            Real Homes. Real Stories.
+          </span>
         </h2>
 
         {/* Grid Container */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 items-start">
           
           {/* Left Column - Image */}
-          <div className="relative w-full aspect-[4/3] lg:aspect-[1.2/1] overflow-hidden bg-white/10">
-            <Image 
-              src="/Testimonial/1.png" 
-              fill 
-              className="object-cover"
-              alt="Testimonial" 
-              sizes="(max-width: 1024px) 100vw, 60vw"
-              priority
-            />
+          <div 
+            ref={imageWrapRef}
+            className="relative w-full aspect-[4/3] lg:aspect-[1.2/1] overflow-hidden bg-white/10"
+            style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
+          >
+            <div 
+              ref={imageRef}
+              className="w-full h-full relative"
+              style={{ transform: 'scale(1.4)' }}
+            >
+              <Image 
+                src="/Testimonial/1.jpg" 
+                fill 
+                className="object-cover"
+                alt="Testimonial" 
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority
+              />
+            </div>
           </div>
 
           {/* Right Column - Content */}
@@ -140,11 +221,9 @@ const Testimonial = () => {
               </div>
 
               {/* Double Quote SVG */}
-              <div className="text-white w-8 h-8 flex items-center justify-center" aria-hidden="true">
-                <svg viewBox="0 0 448 512" fill="currentColor" className="w-full h-full opacity-90">
-                  <path d="M0 216C0 149.7 53.7 96 120 96h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V320 288 216zm256 0c0-66.3 53.7-120 120-120h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H320c-35.3 0-64-28.7-64-64V320 288 216z"/>
-                </svg>
-              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 49 49" className="w-8 h-8 opacity-90" aria-hidden="true">
+                <path fill="white" d="M10.72 20.9.16 10.34 10.72 0l10.34 10.34L1.48 48.4.16 47.08 10.72 20.9Zm27.94 0L28.1 10.34 38.66 0 49 10.34 29.42 48.4l-1.32-1.32L38.66 20.9Z"/>
+              </svg>
             </div>
 
             {/* Text Container (Relative for absolute children) */}

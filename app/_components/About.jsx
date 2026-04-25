@@ -20,35 +20,33 @@ const About = () => {
         const ctx = gsap.context(() => {
             // ── About Content Animations ──
 
-            // Label "(Why us?)" — fade up
+            // Label "(Why us?)" — reveal from bottom
             gsap.fromTo(
-                labelRef.current,
-                { opacity: 0, y: 30 },
+                '.about-label-line',
+                { yPercent: 100 },
                 {
-                    opacity: 1,
-                    y: 0,
+                    yPercent: 0,
                     duration: 1,
-                    ease: 'power3.out',
+                    ease: 'power4.out',
                     scrollTrigger: {
                         trigger: labelRef.current,
-                        start: 'top 90%',
+                        start: 'top 95%',
                         toggleActions: 'play none none none',
                     },
                 }
             )
 
-            // Heading lines — staggered fade up
+            // Heading lines — staggered reveal from bottom
             const headingLines = headingRef.current?.querySelectorAll('.heading-line')
             if (headingLines?.length) {
                 gsap.fromTo(
                     headingLines,
-                    { opacity: 0, y: 50 },
+                    { yPercent: 110 },
                     {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.9,
-                        stagger: 0.12,
-                        ease: 'power3.out',
+                        yPercent: 0,
+                        duration: 1.2,
+                        stagger: 0.1,
+                        ease: 'power4.out',
                         scrollTrigger: {
                             trigger: headingRef.current,
                             start: 'top 85%',
@@ -90,20 +88,20 @@ const About = () => {
                 )
             }
 
-            // Right column text — fade up with stagger
-            const textParas = [textCol1Ref.current, textCol2Ref.current].filter(Boolean)
-            if (textParas.length) {
+            // Right column text — reveal from bottom
+            const textLines = [textCol1Ref.current, textCol2Ref.current].filter(Boolean)
+            if (textLines.length) {
                 gsap.fromTo(
-                    textParas,
-                    { opacity: 0, y: 40 },
+                    textLines,
+                    { yPercent: 100, opacity: 0 },
                     {
+                        yPercent: 0,
                         opacity: 1,
-                        y: 0,
-                        duration: 0.9,
-                        stagger: 0.2,
-                        ease: 'power3.out',
+                        duration: 1.2,
+                        stagger: 0.15,
+                        ease: 'power4.out',
                         scrollTrigger: {
-                            trigger: textParas[0],
+                            trigger: textCol1Ref.current,
                             start: 'top 90%',
                             toggleActions: 'play none none none',
                         },
@@ -159,7 +157,7 @@ const About = () => {
     }, [])
 
     return (
-        <section ref={sectionRef} className="relative" style={{ zIndex: 30, marginTop: '-100vh' }}>
+        <section ref={sectionRef} id="about" className="relative" style={{ zIndex: 30, marginTop: '-100vh' }}>
             <div className="relative">
                 <div className="relative overflow-hidden">
                     <div className="pointer-events-none relative z-[1]">
@@ -188,26 +186,33 @@ const About = () => {
 
                     {/* Left Column — Label + Heading */}
                     <div className="flex flex-col justify-between h-full">
-                        <p
-                            ref={labelRef}
-                            className="text-black text-base font-semibold tracking-wider font-inter">
-                            Why us?
-                        </p>
+                        <div className="overflow-hidden py-1 -my-1">
+                            <p
+                                ref={labelRef}
+                                className="about-label-line text-black text-base font-semibold tracking-wider font-inter">
+                                Why us?
+                            </p>
+                        </div>
 
                         <h2
                             ref={headingRef}
                             className="text-black text-4xl md:text-5xl lg:text-6xl leading-[1.05] mt-auto font-playfair-display">
-                            <span className="heading-line inline-block">
-                                <em className="font-normal">Crafted</em>
-                            </span>
-                            <br />
-                            <span className="heading-line inline-block">With Care,</span>
-                            <br />
-                            <span className="heading-line inline-block">
-                                <em className="font-normal">Designed</em>
-                            </span>
-                            <br />
-                            <span className="heading-line inline-block">For Life</span>
+                            <div className="overflow-hidden py-2 -my-2">
+                                <span className="heading-line inline-block">
+                                    Crafted
+                                </span>
+                            </div>
+                            <div className="overflow-hidden py-2 -my-2">
+                                <span className="heading-line inline-block italic text-[#999]">With Care,</span>
+                            </div>
+                            <div className="overflow-hidden py-2 -my-2">
+                                <span className="heading-line inline-block">
+                                    Designed
+                                </span>
+                            </div>
+                            <div className="overflow-hidden py-2 -my-2">
+                                <span className="heading-line inline-block italic text-[#999]">For Life</span>
+                            </div>
                         </h2>
                     </div>
 
@@ -222,7 +227,7 @@ const About = () => {
                             style={{ transform: 'scale(1.3)', width: '100%', height: '100%' }}
                         >
                             <Image
-                                src="/About/1.gif"
+                                src="/About/1.jpg"
                                 alt="Premium interior design"
                                 width={896}
                                 height={1344}
@@ -234,12 +239,16 @@ const About = () => {
 
                     {/* Right Column — Body Text */}
                     <div className="flex flex-col justify-start gap-8 pt-2 font-inter">
-                        <p ref={textCol1Ref} className="text-black/70 text-sm md:text-[15px] leading-relaxed">
-                            At Websual, your dream home is our priority. We go beyond just listings, offering end-to-end support, verified properties, and honest guidance at every step.
-                        </p>
-                        <p ref={textCol2Ref} className="text-black/70 text-sm md:text-[15px] leading-relaxed">
-                            Whether you&apos;re a first-time homebuyer, a seasoned investor, or a business looking for commercial space, we bring expertise, transparency, and trust to make your journey smooth, stress-free, and rewarding.
-                        </p>
+                        <div className="overflow-hidden py-1 -my-1">
+                            <p ref={textCol1Ref} className="text-black/70 text-sm md:text-[15px] leading-relaxed">
+                                At Websual, your dream home is our priority. We go beyond just listings, offering end-to-end support, verified properties, and honest guidance at every step.
+                            </p>
+                        </div>
+                        <div className="overflow-hidden py-1 -my-1">
+                            <p ref={textCol2Ref} className="text-black/70 text-sm md:text-[15px] leading-relaxed">
+                                Whether you&apos;re a first-time homebuyer, a seasoned investor, or a business looking for commercial space, we bring expertise, transparency, and trust to make your journey smooth, stress-free, and rewarding.
+                            </p>
+                        </div>
                     </div>
 
                 </div>
@@ -255,7 +264,7 @@ const About = () => {
                                 className="font-lora text-black text-6xl md:text-7xl lg:text-8xl font-light leading-none">
                                 ₹<span className="stat-number" data-target="500">500</span> <span className="text-6xl md:text-7xl lg:text-8xl font-inter italic tracking-[-0.1em]">Cr <span className="text-4xl md:text-5xl font-inter align-top">+</span></span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[200px] font-inter">
+                            <p className="text-[#999] text-xs md:text-sm mt-3 leading-snug max-w-[200px] font-inter">
                                 worth of Properties Sold<br />across India.
                             </p>
                         </div>
@@ -265,7 +274,7 @@ const About = () => {
                             >
                                 <span className="stat-number" data-target="20">20</span><span className="text-4xl md:text-5xl align-top font-inter">+</span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[200px] font-inter">
+                            <p className="text-[#999] text-xs md:text-sm mt-3 leading-snug max-w-[200px] font-inter">
                                 cities we operate in,<br />pan-India presence.
                             </p>
                         </div>
@@ -279,7 +288,7 @@ const About = () => {
                             >
                                 <span className="stat-number" data-target="50">50</span><span className="text-4xl md:text-5xl align-top font-inter">+</span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[220px] font-inter">
+                            <p className="text-[#999] text-xs md:text-sm mt-3 leading-snug max-w-[220px] font-inter">
                                 RERA verified projects,<br />each tailored for trust &amp; transparency.
                             </p>
                         </div>
@@ -292,7 +301,7 @@ const About = () => {
                                 className="text-black text-6xl md:text-7xl lg:text-8xl font-light tracking-[-0.03em] font-lora leading-none">
                                 <span className="stat-number" data-target="24">24</span><span className="font-inter mx-1">/</span><span className="stat-number" data-target="7">7</span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[220px] font-inter">
+                            <p className="text-[#999] text-xs md:text-sm mt-3 leading-snug max-w-[220px] font-inter">
                                 expert support, always<br />meeting every need effortlessly.
                             </p>
                         </div>
