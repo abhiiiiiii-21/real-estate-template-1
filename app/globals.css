@@ -51,3 +51,15 @@ body {
   display: flex;
   align-items: center;
 }
+
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+.font-playfair-display {
+  font-family: var(--font-playfair-display);
+}
+
+.font-lora {
+  font-family: var(--font-lora);
+}

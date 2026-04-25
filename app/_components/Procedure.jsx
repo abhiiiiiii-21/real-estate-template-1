@@ -9,17 +9,17 @@ const steps = [
   {
     number: '01',
     title: 'Share Your Requirements.',
-    description: 'Tell us your budget, preferred location, and property type — in just 2 minutes.',
+    description: 'Tell us your budget, preferred location, and property type, in just 2 minutes.',
   },
   {
     number: '02',
     title: 'Get Expert Guidance.',
-    description: 'Our RERA-certified advisors understand what you truly need — not just what\'s available in the market.',
+    description: 'Our RERA-certified advisors understand what you truly need, not just what\'s available in the market.',
   },
   {
     number: '03',
     title: 'Schedule a Free Visit.',
-    description: 'We arrange site visits at your convenience — zero pressure, zero brokerage.',
+    description: 'We arrange site visits at your convenience, with zero pressure and zero brokerage.',
   },
   {
     number: '04',
@@ -170,14 +170,13 @@ const Procedure = () => {
         <div style={{ position: 'sticky', top: '120px' }}>
           <h2
             ref={headingRef}
+            className='font-playfair-display'
             style={{
               fontSize: 'clamp(40px, 5vw, 64px)',
               fontWeight: 400,
               lineHeight: 1.05,
-              letterSpacing: '-0.03em',
               color: '#111',
               marginBottom: '40px',
-              fontFamily: "'Inter', sans-serif",
             }}
           >
             <span className="proc-heading-line" style={{ display: 'block' }}>
@@ -198,7 +197,7 @@ const Procedure = () => {
           <div ref={buttonRef} style={{ opacity: 0 }}>
             <button
               type="button"
-              className="group hero-cta-button inline-flex items-center gap-2.5"
+              className="group hero-cta-button inline-flex items-center gap-2.5 font-inter transition-transform hover:scale-[1.02]"
               aria-haspopup="dialog"
               aria-expanded="false"
               data-state="closed"
@@ -224,16 +223,10 @@ const Procedure = () => {
         <div>
           <p
             ref={stepsLabelRef}
-            style={{
-              fontSize: '14px',
-              fontWeight: 600,
-              letterSpacing: '0.04em',
-              color: '#111',
-              marginBottom: '48px',
-              opacity: 0,
-            }}>
+            className='text-black text-base font-semibold tracking-wider font-inter mb-10'>
             Steps:
           </p>
+  
 
           <div>
             {steps.map((step, i) => (
@@ -276,7 +269,7 @@ const Procedure = () => {
                   </span>
 
                   {/* Step content */}
-                  <div className="step-content" style={{ opacity: 0 }}>
+                  <div className="step-content font-inter" style={{ opacity: 0 }}>
                     <p
                       style={{
                         fontSize: 'clamp(16px, 1.5vw, 20px)',

@@ -9,7 +9,7 @@ const reviews = [
     "name": "Rajesh Sharma",
     "location": "Delhi NCR",
     "rating": 5,
-    "review": "We had been searching for our dream home for over a year. The team at Websual made the entire process so smooth — from property visits to paperwork. We moved into our new 3BHK in Gurgaon within 45 days. Highly recommended!",
+    "review": "We had been searching for our dream home for over a year. The team at Websual made the entire process so smooth, from property visits to paperwork. We moved into our new 3BHK in Gurgaon within 45 days. Highly recommended!",
     "property": "3BHK, Gurgaon"
   },
   {
@@ -17,7 +17,7 @@ const reviews = [
     "name": "Priya Mehta",
     "location": "Mumbai",
     "rating": 5,
-    "review": "As a working woman buying my first home alone in Mumbai, I was nervous about the legal process. Websual's team was transparent, patient, and guided me at every step. Zero hidden charges — exactly what they promised!",
+    "review": "As a working woman buying my first home alone in Mumbai, I was nervous about the legal process. Websual's team was transparent, patient, and guided me at every step. Zero hidden charges, exactly what they promised!",
     "property": "2BHK, Andheri West"
   },
   {
@@ -94,7 +94,7 @@ const Testimonial = () => {
         
         {/* Header */}
         <h2 className="text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-tight mb-16 md:mb-24">
-          <span className="font-semibold text-white">Don't Take</span> <span className="text-[#999]">Our Word for It.</span>
+          <span className="text-white font-playfair-display">Real Homes. Real Stories.</span>
         </h2>
 
         {/* Grid Container */}
@@ -155,7 +155,7 @@ const Testimonial = () => {
                   className="testimonial-text-wrapper absolute inset-0 opacity-0 pointer-events-none"
                 >
                   {/* Review Text */}
-                  <p className="font-serif text-[clamp(20px,2vw,28px)] leading-[1.4] text-white mb-12" style={{ fontFamily: 'Georgia, serif' }}>
+                  <p className="font-inter text-2xl leading-[1.4] text-white mb-12">
                     "{review.review}"
                   </p>
 

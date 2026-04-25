@@ -40,6 +40,7 @@ const FeaturedProperties = () => {
 
     const sectionRef = useRef(null)
     const slideRefs = useRef([])
+    const imageRefs = useRef([])
     const titleRefs = useRef([])
     const infoRefs = useRef([])
     const containerRef = useRef(null)
@@ -219,6 +220,23 @@ const FeaturedProperties = () => {
                 const elements = activeInfoEl.querySelectorAll('.info-child')
                 gsap.fromTo(elements, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.8, stagger: 0.1, ease: 'power3.out' })
             }
+
+            if (imageRefs.current.length > 0) {
+                gsap.fromTo(
+                    imageRefs.current,
+                    { scale: 1.4 },
+                    {
+                        scale: 1,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true,
+                        }
+                    }
+                )
+            }
         }, sectionRef)
 
         return () => ctx.revert()
@@ -233,12 +251,14 @@ const FeaturedProperties = () => {
             {/* ── Header Row: Label + Pagination ── */}
             <div
                 className="flex items-center justify-between px-8 md:px-12 lg:px-16"
-                style={{ paddingTop: '40px', paddingBottom: '20px', zIndex: 10, position: 'relative' }}
-            >
-                <p className="text-white/70 text-sm tracking-wider italic">
-                    (OUR LIVINGS)
+                style={{ paddingTop: '40px', paddingBottom: '20px', zIndex: 10, position: 'relative' }}>
+
+                <p
+                    className="text-white/70 text-base font-semibold tracking-wider font-inter">
+                    Our Properties
                 </p>
-                <div className="flex items-center gap-4" style={{ zIndex: 10 }}>
+
+                <div className="flex items-center gap-4 font-lora" style={{ zIndex: 10 }}>
                     {slides.map((slide, idx) => (
                         <button
                             key={slide.id}
@@ -252,7 +272,7 @@ const FeaturedProperties = () => {
                                 padding: '4px 6px',
                             }}
                         >
-                            ({idx + 1})
+                            {idx + 1}
                         </button>
                     ))}
                 </div>
@@ -287,15 +307,17 @@ const FeaturedProperties = () => {
                                 backfaceVisibility: 'hidden',
                             }}
                         >
-                            <Image
-                                src={slide.image}
-                                alt={slide.title.join(' ')}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover"
-                                priority
-                                loading="eager"
-                            />
+                            <div className="absolute inset-0" ref={(el) => (imageRefs.current[i] = el)} style={{ transform: 'scale(1.4)' }}>
+                                <Image
+                                    src={slide.image}
+                                    alt={slide.title.join(' ')}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className="object-cover"
+                                    priority
+                                    loading="eager"
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>

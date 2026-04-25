@@ -58,7 +58,7 @@ const About = () => {
                 )
             }
 
-            // Image — clip-path reveal + subtle scale
+            // Image — clip-path reveal + continuous 3D scrub scale
             if (imageWrapRef.current && imageRef.current) {
                 gsap.fromTo(
                     imageWrapRef.current,
@@ -76,15 +76,15 @@ const About = () => {
                 )
                 gsap.fromTo(
                     imageRef.current,
-                    { scale: 1.3 },
+                    { scale: 1.4 },
                     {
                         scale: 1,
-                        duration: 1.4,
-                        ease: 'power3.out',
+                        ease: 'none',
                         scrollTrigger: {
                             trigger: imageWrapRef.current,
-                            start: 'top 85%',
-                            toggleActions: 'play none none none',
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true,
                         },
                     }
                 )
@@ -131,6 +131,26 @@ const About = () => {
                             },
                         }
                     )
+
+                    const numbers = item.querySelectorAll('.stat-number')
+                    numbers.forEach(num => {
+                        const target = num.getAttribute('data-target')
+                        gsap.fromTo(num, 
+                            { innerHTML: 0 },
+                            {
+                                innerHTML: target,
+                                duration: 2,
+                                delay: i * 0.1,
+                                ease: 'power3.out',
+                                snap: { innerHTML: 1 },
+                                scrollTrigger: {
+                                    trigger: item,
+                                    start: 'top 90%',
+                                    toggleActions: 'play none none none',
+                                }
+                            }
+                        )
+                    })
                 })
             }
         }, sectionRef)
@@ -170,15 +190,13 @@ const About = () => {
                     <div className="flex flex-col justify-between h-full">
                         <p
                             ref={labelRef}
-                            className="text-black/60 text-sm tracking-wider"
-                        >
-                            (Why us?)
+                            className="text-black text-base font-semibold tracking-wider font-inter">
+                            Why us?
                         </p>
 
                         <h2
                             ref={headingRef}
-                            className="text-black text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.02em] mt-auto"
-                        >
+                            className="text-black text-4xl md:text-5xl lg:text-6xl leading-[1.05] mt-auto font-playfair-display">
                             <span className="heading-line inline-block">
                                 <em className="font-normal">Crafted</em>
                             </span>
@@ -204,10 +222,10 @@ const About = () => {
                             style={{ transform: 'scale(1.3)', width: '100%', height: '100%' }}
                         >
                             <Image
-                                src="/About/1.png"
+                                src="/About/1.gif"
                                 alt="Premium interior design"
-                                width={1920}
-                                height={1080}
+                                width={896}
+                                height={1344}
                                 sizes="(max-width: 768px) 100vw, 40vw"
                                 className="w-full h-full object-cover"
                             />
@@ -215,7 +233,7 @@ const About = () => {
                     </div>
 
                     {/* Right Column — Body Text */}
-                    <div className="flex flex-col justify-start gap-8 pt-2">
+                    <div className="flex flex-col justify-start gap-8 pt-2 font-inter">
                         <p ref={textCol1Ref} className="text-black/70 text-sm md:text-[15px] leading-relaxed">
                             At Websual, your dream home is our priority. We go beyond just listings, offering end-to-end support, verified properties, and honest guidance at every step.
                         </p>
@@ -234,22 +252,21 @@ const About = () => {
                     <div className="flex justify-end gap-16 md:gap-24 lg:gap-32 mb-16 md:mb-24">
                         <div className="stat-item">
                             <p
-                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light tracking-[-0.03em] leading-none"
-                            >
-                                ₹500Cr<span className="text-4xl md:text-5xl align-top">+</span>
+                                className="font-lora text-black text-6xl md:text-7xl lg:text-8xl font-light leading-none">
+                                ₹<span className="stat-number" data-target="500">500</span> <span className="text-6xl md:text-7xl lg:text-8xl font-inter italic tracking-[-0.1em]">Cr <span className="text-4xl md:text-5xl font-inter align-top">+</span></span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[200px]">
-                                Worth of Properties Sold<br />across India.
+                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[200px] font-inter">
+                                worth of Properties Sold<br />across India.
                             </p>
                         </div>
                         <div className="stat-item">
                             <p
-                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light tracking-[-0.03em] leading-none"
+                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light font-lora  leading-none"
                             >
-                                20<span className="text-4xl md:text-5xl align-top">+</span>
+                                <span className="stat-number" data-target="20">20</span><span className="text-4xl md:text-5xl align-top font-inter">+</span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[200px]">
-                                Cities we operate in,<br />pan-India presence.
+                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[200px] font-inter">
+                                cities we operate in,<br />pan-India presence.
                             </p>
                         </div>
                     </div>
@@ -258,11 +275,11 @@ const About = () => {
                     <div className="flex justify-start mb-16 md:mb-24">
                         <div className="stat-item">
                             <p
-                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light tracking-[-0.03em] leading-none"
+                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light font-lora leading-none"
                             >
-                                50<span className="text-4xl md:text-5xl align-top">+</span>
+                                <span className="stat-number" data-target="50">50</span><span className="text-4xl md:text-5xl align-top font-inter">+</span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[220px]">
+                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[220px] font-inter">
                                 RERA verified projects,<br />each tailored for trust &amp; transparency.
                             </p>
                         </div>
@@ -272,12 +289,11 @@ const About = () => {
                     <div className="flex justify-start md:justify-center md:mr-[30%]">
                         <div className="stat-item">
                             <p
-                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light tracking-[-0.03em] leading-none"
-                            >
-                                24<span className="text-4xl md:text-5xl">/</span>7
+                                className="text-black text-6xl md:text-7xl lg:text-8xl font-light tracking-[-0.03em] font-lora leading-none">
+                                <span className="stat-number" data-target="24">24</span><span className="font-inter mx-1">/</span><span className="stat-number" data-target="7">7</span>
                             </p>
-                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[220px]">
-                                Expert support, always<br />meeting every need effortlessly.
+                            <p className="text-black/50 text-xs md:text-sm mt-3 leading-snug max-w-[220px] font-inter">
+                                expert support, always<br />meeting every need effortlessly.
                             </p>
                         </div>
                     </div>

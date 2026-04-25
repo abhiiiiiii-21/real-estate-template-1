@@ -1,8 +1,32 @@
-import React from 'react'
+'use client'
+import React, { useRef, useEffect } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Footer = () => {
+    const containerRef = useRef(null)
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.to('.footer-letter', {
+                y: '0%',
+                stagger: 0.05,
+                duration: 1.2,
+                ease: 'power4.out',
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                }
+            })
+        }, containerRef)
+        return () => ctx.revert()
+    }, [])
+
     return (
-        <footer className="bg-[#151717] pt-24 pb-8 px-8 md:px-12 lg:px-16 overflow-hidden">
+        <footer ref={containerRef} className="bg-[#151717] pt-24 pb-8 px-8 md:px-12 lg:px-16 overflow-hidden">
             <div className="max-w-[1400px] mx-auto">
 
                 {/* Top Section */}
@@ -39,7 +63,7 @@ const Footer = () => {
                             <div>
                                 <h4 className="text-white/40 text-[11px] uppercase tracking-wider font-semibold mb-4">Email Us</h4>
                                 <a href="mailto:hello@findrealestate.com" className="text-white text-sm hover:text-gray-300 transition-colors">
-                                    contact@websual.com
+                                    contact@websual.agency
                                 </a>
                             </div>
                             <div>
@@ -89,8 +113,12 @@ const Footer = () => {
 
                 {/* Huge Text Section */}
                 <div className="mt-24 md:mt-32 w-full flex justify-start">
-                    <h1 className="text-[14vw] sm:text-[16vw] lg:text-[15.5vw] leading-[0.75] font-black text-white tracking-tighter">
-                        WEBSUAL
+                    <h1 className="text-[14vw] sm:text-[16vw] lg:text-[15.5vw] leading-[0.75] font-black text-white tracking-tighter overflow-hidden flex">
+                        {"WEBSUAL".split('').map((char, index) => (
+                            <span key={index} className="footer-letter inline-block translate-y-[120%]">
+                                {char}
+                            </span>
+                        ))}
                     </h1>
                 </div>
 
