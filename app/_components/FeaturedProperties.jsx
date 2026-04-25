@@ -11,27 +11,36 @@ CustomEase.create('splideEase', 'M0,0 C0.25,1 0.5,1 1,1')
 
 const slides = [
     {
-        id: 1,
-        title: ['LUMIÈRE DUPLEX', 'RESIDENCES'],
-        description:
-            'Two-story luxury apartments that features sunlit living spaces, private terraces, and a selection of exclusive amenities.',
-        image: '/Featured/1.png',
+      id: 1,
+      title: ['ARJUN HEIGHTS', 'LUXURY RESIDENCES'],
+      description:
+        'Spacious 3 & 4 BHK apartments with floor-to-ceiling windows, private balconies, and world-class amenities in the heart of Gurugram.',
+      image: '/Featured/1.png',
+      location: 'Sector 54, Gurugram',
+      price: '₹2.8 Cr onwards',
+      tag: 'RERA Registered',
     },
     {
-        id: 2,
-        title: ['CROWN JEWEL', 'PENTHOUSE'],
-        description:
-            'With panoramic views, curated interiors, and spaces shaped for comfort and sophistication, the penthouse becomes more than a home.',
-        image: '/Featured/2.png',
+      id: 2,
+      title: ['ROYAL EMPRESS', 'PENTHOUSE COLLECTION'],
+      description:
+        'An exclusive collection of sky-high penthouses offering panoramic views of the city skyline, Vastu-compliant layouts, and bespoke interiors crafted for the elite.',
+      image: '/Featured/2.png',
+      location: 'Bandra West, Mumbai',
+      price: '₹8.5 Cr onwards',
+      tag: 'Limited Units',
     },
     {
-        id: 3,
-        title: ['AURELIA', 'GARDEN SUITES'],
-        description:
-            'Ground-level sanctuaries offering serene private gardens and a seamless blend of indoor comfort and outdoor tranquility.',
-        image: '/Featured/3.png',
+      id: 3,
+      title: ['VRINDAVAN', 'GARDEN VILLAS'],
+      description:
+        'Serene independent villas surrounded by lush landscaped gardens, offering the perfect blend of privacy, nature, and modern luxury living.',
+      image: '/Featured/3.png',
+      location: 'Whitefield, Bangalore',
+      price: '₹4.2 Cr onwards',
+      tag: 'New Launch',
     },
-]
+  ]
 
 const FeaturedProperties = () => {
     const [activeIndex, setActiveIndex] = useState(0)
@@ -252,7 +261,7 @@ const FeaturedProperties = () => {
             {/* ── Header Row: Label + Pagination ── */}
             <div
                 className="flex items-center justify-between px-8 md:px-12 lg:px-16"
-                style={{ paddingTop: '40px', paddingBottom: '20px', zIndex: 10, position: 'relative' }}>
+                style={{ paddingTop: '100px', paddingBottom: '30px', zIndex: 10, position: 'relative' }}>
 
                 <p
                     className="text-white/70 text-base font-semibold tracking-wider font-inter">
@@ -326,7 +335,7 @@ const FeaturedProperties = () => {
                 {/* ── Title Overlay (Grid Stack) ── */}
                 <div
                     className="absolute inset-0 grid pointer-events-none"
-                    style={{ zIndex: 5, placeItems: 'center' }}
+                    style={{ zIndex: 5, placeItems: 'start center', paddingTop: '8vh' }}
                 >
                     {slides.map((slide, i) => (
                         <h2
@@ -345,7 +354,7 @@ const FeaturedProperties = () => {
                             }}
                         >
                             {slide.title.map((line, lineIdx) => (
-                                <div key={lineIdx} className="overflow-hidden" style={{ display: 'flex', justifyContent: 'center' }}>
+                                <div key={lineIdx} className="overflow-hidden py-6 -my-6" style={{ display: 'flex', justifyContent: 'center' }}>
                                     <span className="title-line block">{line}</span>
                                 </div>
                             ))}
@@ -358,8 +367,8 @@ const FeaturedProperties = () => {
             <div
                 className="grid px-8 md:px-12 lg:px-16"
                 style={{
-                    paddingTop: '28px',
-                    paddingBottom: '40px',
+                    paddingTop: '40px',
+                    paddingBottom: '100px',
                     maxWidth: '900px',
                     margin: '0 auto',
                     position: 'relative',
@@ -384,7 +393,7 @@ const FeaturedProperties = () => {
                             {slide.description}
                         </p>
                         <button
-                            className="flex-shrink-0 cursor-pointer info-child"
+                            className="shrink-0 cursor-pointer info-child"
                             style={{
                                 color: '#ffffff',
                                 fontSize: '12px',

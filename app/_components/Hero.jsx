@@ -1,8 +1,9 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from './Navbar'
+import PropertyCard from './_Hero/card'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -15,6 +16,7 @@ const Hero = () => {
   const cloudLeftRef = useRef(null)
   const cloudRightRef = useRef(null)
   const smokeRef = useRef(null)
+  const [isCardOpen, setIsCardOpen] = useState(false)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -235,19 +237,19 @@ const Hero = () => {
               </div>
             </h1>
 
-            <p
+            <div
               className="text-black text-base md:text-lg mb-8 max-w-xl tracking-[-0.01em] font-inter">
               <div className="overflow-hidden py-1 -my-1">
                 <span className="hero-desc-line block">
                   Expert agents. Real guidance. A clear path to find what&apos;s next.
                 </span>
               </div>
-            </p>
+            </div>
 
             <div className="hero-cta-reveal">
-              <Link
-                href="#properties"
-                className="group hero-cta-button inline-flex items-center gap-2.5 font-inter transition-transform hover:scale-[1.02] no-underline"
+              <button
+                onClick={() => setIsCardOpen(true)}
+                className="group hero-cta-button inline-flex items-center gap-2.5 font-inter transition-transform hover:scale-[1.02] no-underline border-none bg-transparent cursor-pointer"
                 id="hero-find-properties">
                 <div className="relative overflow-hidden leading-tight font-inter">
                   <span 
@@ -262,7 +264,7 @@ const Hero = () => {
                     <path fill="currentColor" d="m20.78 12.531-6.75 6.75a.75.75 0 1 1-1.06-1.061l5.47-5.47H3.75a.75.75 0 1 1 0-1.5h14.69l-5.47-5.469a.75.75 0 1 1 1.06-1.061l6.75 6.75a.75.75 0 0 1 0 1.061"></path>
                   </svg>
                 </span>
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -271,6 +273,8 @@ const Hero = () => {
 
       {/* ── Overlap transition to next section ── */}
 
+      {/* Property Inquiry Card */}
+      <PropertyCard isOpen={isCardOpen} onClose={() => setIsCardOpen(false)} />
     </section>
   )
 }
