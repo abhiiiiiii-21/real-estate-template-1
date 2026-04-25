@@ -11,36 +11,36 @@ CustomEase.create('splideEase', 'M0,0 C0.25,1 0.5,1 1,1')
 
 const slides = [
     {
-      id: 1,
-      title: ['ARJUN HEIGHTS', 'LUXURY RESIDENCES'],
-      description:
-        'Spacious 3 & 4 BHK apartments with floor-to-ceiling windows, private balconies, and world-class amenities in the heart of Gurugram.',
-      image: '/Featured/1.png',
-      location: 'Sector 54, Gurugram',
-      price: '₹2.8 Cr onwards',
-      tag: 'RERA Registered',
+        id: 1,
+        title: ['ARJUN HEIGHTS', 'RESIDENCES'],
+        description:
+            'Spacious 3 & 4 BHK apartments with floor-to-ceiling windows, private balconies, and world-class amenities in the heart of Gurugram.',
+        image: '/Featured/1.png',
+        location: 'Sector 54, Gurugram',
+        price: '₹2.8 Cr onwards',
+        tag: 'RERA Registered',
     },
     {
-      id: 2,
-      title: ['ROYAL EMPRESS', 'PENTHOUSE COLLECTION'],
-      description:
-        'An exclusive collection of sky-high penthouses offering panoramic views of the city skyline, Vastu-compliant layouts, and bespoke interiors crafted for the elite.',
-      image: '/Featured/2.png',
-      location: 'Bandra West, Mumbai',
-      price: '₹8.5 Cr onwards',
-      tag: 'Limited Units',
+        id: 2,
+        title: ['ROYAL EMPRESS', 'PENTHOUSE'],
+        description:
+            'An exclusive collection of sky-high penthouses offering panoramic views of the city skyline, Vastu-compliant layouts, and bespoke interiors crafted for the elite.',
+        image: '/Featured/2.png',
+        location: 'Bandra West, Mumbai',
+        price: '₹8.5 Cr onwards',
+        tag: 'Limited Units',
     },
     {
-      id: 3,
-      title: ['VRINDAVAN', 'GARDEN VILLAS'],
-      description:
-        'Serene independent villas surrounded by lush landscaped gardens, offering the perfect blend of privacy, nature, and modern luxury living.',
-      image: '/Featured/3.png',
-      location: 'Whitefield, Bangalore',
-      price: '₹4.2 Cr onwards',
-      tag: 'New Launch',
+        id: 3,
+        title: ['VRINDAVAN', 'GARDEN VILLAS'],
+        description:
+            'Serene independent villas surrounded by lush landscaped gardens, offering the perfect blend of privacy, nature, and modern luxury living.',
+        image: '/Featured/3.png',
+        location: 'Whitefield, Bangalore',
+        price: '₹4.2 Cr onwards',
+        tag: 'New Launch',
     },
-  ]
+]
 
 const FeaturedProperties = () => {
     const [activeIndex, setActiveIndex] = useState(0)
@@ -169,7 +169,7 @@ const FeaturedProperties = () => {
                 )
             }
             if (newInfoEl) {
-                tl.set(newInfoEl, { visibility: 'visible' }, 0.35)
+                tl.set(newInfoEl, { visibility: 'visible', opacity: 1 }, 0.35)
                 const elements = newInfoEl.querySelectorAll('.info-child')
                 tl.fromTo(elements,
                     { opacity: 0, y: 15 },
@@ -264,7 +264,7 @@ const FeaturedProperties = () => {
                 style={{ paddingTop: '100px', paddingBottom: '30px', zIndex: 10, position: 'relative' }}>
 
                 <p
-                    className="text-white/70 text-base font-semibold tracking-wider font-inter">
+                    className="text-[#999] text-base tracking-wider font-inter">
                     Our Properties
                 </p>
 
@@ -350,7 +350,7 @@ const FeaturedProperties = () => {
                                 letterSpacing: '-0.02em',
                                 textTransform: 'uppercase',
                                 textShadow: '0 4px 60px rgba(0,0,0,0.5)',
-                                fontFamily: "'Playfair Display', 'Times New Roman', serif"
+                                fontFamily: "Playfair Display"
                             }}
                         >
                             {slide.title.map((line, lineIdx) => (
@@ -383,7 +383,7 @@ const FeaturedProperties = () => {
                         style={{ gridArea: '1 / 1' }}
                     >
                         <p
-                            className="text-white/70 info-child"
+                            className="text-[#999] info-child font-inter"
                             style={{
                                 fontSize: '14px',
                                 lineHeight: 1.6,
@@ -393,30 +393,16 @@ const FeaturedProperties = () => {
                             {slide.description}
                         </p>
                         <button
-                            className="shrink-0 cursor-pointer info-child"
-                            style={{
-                                color: '#ffffff',
-                                fontSize: '12px',
-                                fontWeight: 400,
-                                letterSpacing: '0.08em',
-                                textTransform: 'uppercase',
-                                border: '1px solid rgba(255,255,255,0.3)',
-                                borderRadius: '9999px',
-                                padding: '12px 28px',
-                                background: 'transparent',
-                                transition: 'all 0.35s ease',
-                                fontFamily: "'Inter', sans-serif"
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
-                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)'
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'transparent'
-                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
-                            }}
+                            className="font-inter group shrink-0 cursor-pointer info-child inline-flex items-center gap-2.5 font-inter no-underline border border-white/30 bg-transparent text-white rounded-full px-7 py-3 text-[12px] font-medium uppercase tracking-[0.08em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] will-change-transform"
                         >
-                            Learn More
+                            <div className="relative overflow-hidden leading-tight">
+                                <span 
+                                    className="font-inter block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full after:content-[attr(data-text)] after:absolute after:left-0 after:top-full" 
+                                    data-text="Learn More"
+                                >
+                                    Learn More
+                                </span>
+                            </div>
                         </button>
                     </div>
                 ))}
