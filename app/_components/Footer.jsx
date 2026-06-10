@@ -37,7 +37,7 @@ const Footer = () => {
     }, [])
 
     return (
-        <footer ref={containerRef} className="bg-[#151717] pt-24 pb-8 px-8 md:px-12 lg:px-16 overflow-hidden font-inter">
+        <footer ref={containerRef} className="bg-[#151717] max-md:pt-16 max-md:pb-6 pt-24 pb-8 max-md:px-5 px-8 md:px-12 lg:px-16 overflow-hidden font-inter">
             <div className="max-w-[1400px] mx-auto">
 
                 {/* Top Section */}
@@ -45,9 +45,9 @@ const Footer = () => {
 
                     {/* Left Column - Subscribe & Contact */}
                     <div className="w-full lg:w-[45%]">
-                        <h3 className="text-white text-2xl font-medium mb-8 font-playfair-display">Subscribe to our Newsletter!</h3>
+                        <h3 className="text-white text-2xl max-md:text-[22px] font-medium max-md:mb-6 mb-8 font-playfair-display">Subscribe to our Newsletter!</h3>
 
-                        <div className="relative border-b border-white/20 pb-3 mb-16 group">
+                        <div className="relative border-b border-white/20 pb-3 max-md:mb-10 mb-16 group">
                             <input
                                 type="email"
                                 placeholder="Enter address"
@@ -63,7 +63,7 @@ const Footer = () => {
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8">
+                        <div className="grid max-md:grid-cols-1 grid-cols-2 md:grid-cols-3 max-md:gap-y-8 gap-y-12 gap-x-8">
                             <div>
                                 <h4 className="text-white/40 text-[11px] uppercase tracking-wider font-semibold mb-4">Head Office</h4>
                                 <p className="text-white text-sm leading-relaxed">
@@ -86,8 +86,8 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-16 lg:gap-32 mt-16 lg:mt-0">
-                        <div className="flex flex-col gap-5">
+                    <div className="w-full lg:w-auto flex flex-col sm:flex-row max-md:gap-10 gap-16 lg:gap-32 max-md:mt-12 mt-16 lg:mt-0">
+                        <div className="flex flex-col max-md:gap-4 gap-5">
                             {[
                                 { name: 'Amenities', href: '#' },
                                 { name: 'Properties', href: '#properties' },
@@ -111,7 +111,7 @@ const Footer = () => {
                                 </a>
                             ))}
                         </div>
-                        <div className="flex flex-col gap-5">
+                        <div className="flex flex-col max-md:gap-4 gap-5">
                             {[
                                 { name: 'Instagram', url: 'https://www.instagram.com/websual.agency' },
                                 { name: 'Linkedin', url: 'https://www.instagram.com/websual.agency' }
@@ -133,8 +133,8 @@ const Footer = () => {
                 </div>
 
                 {/* Huge Text Section */}
-                <div className="mt-6 md:mt-20 w-full flex justify-start">
-                    <h1 className="text-[14vw] sm:text-[16vw] lg:text-[15.5vw] leading-[0.75] font-black text-white overflow-hidden flex font-playfair-display pb-4">
+                <div className="mt-6 md:mt-20 w-full flex max-md:justify-center justify-start">
+                    <h1 className="text-[14vw] sm:text-[16vw] lg:text-[15.5vw] leading-[0.75] font-black text-white overflow-hidden flex font-playfair-display max-md:pb-2 pb-4">
                         {"WEBSUAL".split('').map((char, index) => (
                             <span key={index} className="footer-letter inline-block translate-y-[120%]">
                                 {char}
@@ -144,8 +144,8 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Strip */}
-                <div className="mt-12 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pt-6">
-                    <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                <div className="max-md:mt-8 mt-12 flex flex-col xl:flex-row justify-between max-md:items-center items-start xl:items-center max-md:gap-4 gap-6 max-md:pt-4 pt-6 max-md:border-t max-md:border-white/10">
+                    <div className="flex flex-wrap max-md:justify-center items-center gap-x-6 gap-y-3">
                         {[
                             'Terms',
                             'Privacy policy'
@@ -162,7 +162,7 @@ const Footer = () => {
                             </a>
                         ))}
                     </div>
-                    <div className="flex flex-wrap items-center gap-6 text-white/40 text-[11px] shrink-0 mt-2 xl:mt-0">
+                    <div className="flex flex-wrap max-md:justify-center items-center max-md:gap-4 gap-6 text-white/40 text-[11px] shrink-0 mt-2 xl:mt-0">
                         <span>WEBSUAL</span>
                         <span>Copyright © 2026</span>
                     </div>

@@ -168,7 +168,7 @@ const Navbar = () => {
         {/* CTA Button */}
         <Link
           href="/contact"
-          className="group hero-cta-button inline-flex items-center gap-2 !px-6 !py-2.5 font-inter transition-transform hover:scale-[1.02] no-underline max-md:hidden"
+          className="group hero-cta-button items-center gap-2 !px-6 !py-2.5 font-inter transition-transform hover:scale-[1.02] no-underline !hidden md:!inline-flex"
           id="navbar-contact-btn"
         >
           <div className="relative overflow-hidden leading-tight font-inter">
@@ -196,10 +196,10 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`hidden max-md:block overflow-hidden transition-all duration-350 ease-out ${mobileMenuOpen ? 'max-h-[500px]' : 'max-h-0'}`}
+        className={`hidden max-md:block absolute top-[calc(100%-0.5rem)] left-4 right-4 overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] bg-white/95 backdrop-blur-xl border border-black/5 rounded-2xl shadow-2xl origin-top ${mobileMenuOpen ? 'max-h-[500px] opacity-100 scale-100' : 'max-h-0 opacity-0 scale-95 pointer-events-none'}`}
         id="navbar-mobile-menu"
       >
-        <ul className="list-none m-0 px-5 pt-3 pb-5 flex flex-col gap-0.5">
+        <ul className="list-none m-0 px-5 py-5 flex flex-col gap-1">
           {[
             { name: 'About', href: '#about' },
             { name: 'Properties', href: '#properties' },

@@ -65,10 +65,14 @@ const FeaturedProperties = () => {
         // All slides have CSS left:50%. GSAP xPercent:-50 centers them.
         // Then 'x' offsets move them horizontally (GPU composited, no layout thrash).
         // Offsets as fraction of container width to match reference layout.
-        const leftX = -cw * 0.4
-        const rightX = cw * 0.4
-        const farLeftX = -cw * 0.7
-        const farRightX = cw * 0.7
+        const isMobile = window.innerWidth <= 768
+        const offset = isMobile ? 0.6 : 0.4
+        const farOffset = isMobile ? 1.0 : 0.7
+        
+        const leftX = -cw * offset
+        const rightX = cw * offset
+        const farLeftX = -cw * farOffset
+        const farRightX = cw * farOffset
 
         return {
             center: { x: 0, xPercent: -50, scale: 1, filter: 'brightness(1)', zIndex: 3, opacity: 1 },
@@ -260,8 +264,8 @@ const FeaturedProperties = () => {
         >
             {/* ── Header Row: Label + Pagination ── */}
             <div
-                className="flex items-center justify-between px-8 md:px-12 lg:px-16"
-                style={{ paddingTop: '100px', paddingBottom: '30px', zIndex: 10, position: 'relative' }}>
+                className="flex items-center justify-between max-md:px-5 px-8 md:px-12 lg:px-16 max-md:pt-20 pt-[100px] pb-[30px] relative z-10"
+            >
 
                 <p
                     className="text-[#999] text-base tracking-wider font-inter">
@@ -291,12 +295,7 @@ const FeaturedProperties = () => {
             {/* ── Carousel Area ── */}
             <div
                 ref={containerRef}
-                className="relative"
-                style={{
-                    height: 'calc(100vh - 200px)',
-                    maxHeight: '720px',
-                    minHeight: '500px',
-                }}
+                className="relative h-[calc(100vh-200px)] max-h-[720px] min-h-[500px] max-md:h-[55vh] max-md:min-h-[350px]"
             >
                 {/* Images Container */}
                 <div className="absolute inset-0">
@@ -304,12 +303,11 @@ const FeaturedProperties = () => {
                         <div
                             key={slide.id}
                             ref={(el) => (slideRefs.current[i] = el)}
-                            className="absolute overflow-hidden"
+                            className="absolute overflow-hidden w-[32%] max-md:w-[70%]"
                             onClick={() => handleImageClick(i)}
                             style={{
                                 left: '50%',
                                 top: '5%',
-                                width: '32%',
                                 height: '90%',
                                 opacity: 0,
                                 cursor: i !== activeIndex ? 'pointer' : 'default',
@@ -344,7 +342,7 @@ const FeaturedProperties = () => {
                             className="text-center text-white"
                             style={{
                                 gridArea: '1 / 1',
-                                fontSize: 'clamp(48px, 8vw, 120px)',
+                                fontSize: 'clamp(32px, 10vw, 120px)',
                                 fontWeight: 400,
                                 lineHeight: 0.95,
                                 letterSpacing: '-0.02em',
@@ -365,30 +363,17 @@ const FeaturedProperties = () => {
 
             {/* ── Bottom Info Bar (Grid Stack) ── */}
             <div
-                className="grid px-8 md:px-12 lg:px-16"
-                style={{
-                    paddingTop: '40px',
-                    paddingBottom: '100px',
-                    maxWidth: '900px',
-                    margin: '0 auto',
-                    position: 'relative',
-                    zIndex: 10,
-                }}
+                className="grid max-md:px-5 px-8 md:px-12 lg:px-16 max-md:pb-16 max-md:pt-6 pt-[40px] pb-[100px] relative z-10 max-w-[900px] mx-auto"
             >
                 {slides.map((slide, i) => (
                     <div
                         key={slide.id}
                         ref={(el) => (infoRefs.current[i] = el)}
-                        className="flex items-center gap-6 justify-center"
+                        className="flex max-md:flex-col items-center max-md:text-center gap-6 justify-center"
                         style={{ gridArea: '1 / 1' }}
                     >
                         <p
-                            className="text-[#999] info-child font-inter"
-                            style={{
-                                fontSize: '14px',
-                                lineHeight: 1.6,
-                                maxWidth: '360px',
-                            }}
+                            className="text-[#999] info-child font-inter max-md:max-w-full max-w-[360px] text-[14px] leading-[1.6]"
                         >
                             {slide.description}
                         </p>

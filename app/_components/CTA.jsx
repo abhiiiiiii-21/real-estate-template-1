@@ -62,7 +62,7 @@ const CTA = () => {
     }, [])
 
     return (
-        <section ref={containerRef} className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden py-32">
+        <section ref={containerRef} className="relative w-full max-md:min-h-[50vh] min-h-[60vh] flex items-center justify-center overflow-hidden max-md:py-20 py-32">
             {/* Background Image */}
             <div className="absolute inset-0 w-full h-full">
                 <Image
@@ -78,8 +78,8 @@ const CTA = () => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 max-w-6xl mx-auto">
-                <h2 className="text-white text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-8 font-playfair-display">
+            <div className="relative z-10 flex flex-col items-center justify-center text-center max-md:px-5 px-6 max-w-6xl mx-auto">
+                <h2 className="text-white max-md:text-[36px] text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight max-md:mb-6 mb-8 font-playfair-display">
                     {["The Right Home Exists.", "Let's Find Yours."].map((line, idx) => (
                         <div key={idx} className="overflow-hidden py-4 -my-4">
                             <span className="cta-title-line block">{line}</span>
@@ -91,7 +91,7 @@ const CTA = () => {
                 <div className="cta-button-fade mt-4">
                     <button
                         type="button"
-                        className="group hero-cta-button inline-flex items-center gap-2.5 !bg-white !text-black px-10 py-5 rounded-full transition-transform hover:scale-[1.02] font-medium"
+                        className="group hero-cta-button inline-flex items-center max-md:gap-2 gap-2.5 !bg-white !text-black max-md:px-8 max-md:py-4 px-10 py-5 rounded-full transition-transform hover:scale-[1.02] font-medium"
                         aria-haspopup="dialog"
                         aria-expanded="false"
                         data-state="closed"

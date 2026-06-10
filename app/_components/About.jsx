@@ -181,11 +181,11 @@ const About = () => {
             </div>
 
             {/* ── About Section ── */}
-            <div className="bg-white px-10 md:px-16 lg:px-20 py-6 md:py-6">
+            <div className="bg-white max-md:px-5 px-10 md:px-16 lg:px-20 py-10 md:py-6 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1fr] gap-8 md:gap-10 items-start min-h-[70vh]">
 
                     {/* Left Column — Label + Heading */}
-                    <div className="flex flex-col justify-between h-full">
+                    <div className="flex flex-col justify-between h-full max-md:gap-8">
                         <div className="overflow-hidden py-1 -my-1">
                             <p
                                 ref={labelRef}
@@ -219,7 +219,7 @@ const About = () => {
                     {/* Center Column — Image */}
                     <div
                         ref={imageWrapRef}
-                        className="overflow-hidden h-full"
+                        className="overflow-hidden h-full max-md:h-[50vh] max-md:min-h-[400px] max-md:rounded-2xl"
                         style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
                     >
                         <div
@@ -258,7 +258,7 @@ const About = () => {
                 <div ref={statsRef} className="mt-28 md:mt-40 pb-16 md:pb-24 relative" style={{ minHeight: '60vh' }}>
 
                     {/* Row 1 — Right aligned: ₹500Cr+ and 20+ */}
-                    <div className="flex justify-end gap-16 md:gap-24 lg:gap-32 mb-16 md:mb-24">
+                    <div className="flex max-md:flex-col justify-end max-md:items-start gap-12 md:gap-24 lg:gap-32 mb-16 md:mb-24">
                         <div className="stat-item">
                             <p
                                 className="font-lora text-black text-6xl md:text-7xl lg:text-8xl font-light leading-none">

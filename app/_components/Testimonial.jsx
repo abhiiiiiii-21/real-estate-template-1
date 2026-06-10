@@ -148,23 +148,23 @@ const Testimonial = () => {
   }, [])
 
   return (
-    <section id="testimonials" className="bg-[#151717] py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto px-8 md:px-12" ref={containerRef}>
+    <section id="testimonials" className="bg-[#151717] max-md:py-16 py-24 md:py-32">
+      <div className="max-w-[1400px] mx-auto max-md:px-5 px-8 md:px-12" ref={containerRef}>
         
         {/* Header */}
-        <h2 className="text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-tight mb-16 md:mb-24 relative inline-block">
+        <h2 className="text-[clamp(40px,5vw,64px)] max-md:text-[36px] leading-[1.05] tracking-tight max-md:mb-10 mb-16 md:mb-24 relative inline-block">
           {/* Base Layer (Grey) */}
           <span className="text-white/20 font-playfair-display">
-            Real Homes. Real Stories.
+            Real Homes.<br className="hidden max-md:block" /> Real Stories.
           </span>
           {/* Reveal Layer (White) */}
           <span 
             ref={headingRef}
-            className="text-white font-playfair-display absolute inset-0 whitespace-nowrap"
+            className="text-white font-playfair-display absolute inset-0 max-md:whitespace-normal whitespace-nowrap"
             style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
             aria-hidden="true"
           >
-            Real Homes. Real Stories.
+            Real Homes.<br className="hidden max-md:block" /> Real Stories.
           </span>
         </h2>
 
@@ -174,7 +174,7 @@ const Testimonial = () => {
           {/* Left Column - Image */}
           <div 
             ref={imageWrapRef}
-            className="relative w-full aspect-[4/3] lg:aspect-[1.2/1] overflow-hidden bg-white/10"
+            className="relative w-full max-md:aspect-[4/3] max-md:rounded-2xl aspect-[4/3] lg:aspect-[1.2/1] overflow-hidden bg-white/10"
             style={{ clipPath: 'inset(0% 100% 0% 0%)' }}
           >
             <div 
@@ -197,10 +197,10 @@ const Testimonial = () => {
           <div className="flex flex-col pt-0 lg:pt-8">
             
             {/* Top border line */}
-            <div className="w-full h-[1px] bg-white/10 mb-8" />
+            <div className="w-full h-[1px] bg-white/10 max-md:mb-6 mb-8" />
 
             {/* Pagination and Quote Icon Row */}
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center justify-between max-md:mb-8 mb-12">
               
               {/* Pagination Circles */}
               <div className="flex gap-3">
@@ -234,14 +234,14 @@ const Testimonial = () => {
                   className="testimonial-text-wrapper absolute inset-0 opacity-0 pointer-events-none"
                 >
                   {/* Review Text */}
-                  <p className="font-inter text-2xl leading-[1.4] text-white mb-12">
+                  <p className="font-inter max-md:text-[20px] text-2xl leading-[1.4] text-white max-md:mb-8 mb-12">
                     "{review.review}"
                   </p>
 
                   {/* Author Info */}
-                  <div className="flex items-center gap-4 uppercase tracking-widest text-[11px] font-bold text-white">
+                  <div className="flex items-center max-md:flex-wrap max-md:gap-2 gap-4 uppercase tracking-widest text-[11px] font-bold text-white">
                     <span>{review.name}</span>
-                    <span className="text-white/30">/</span>
+                    <span className="text-white/30 max-md:hidden">/</span>
                     <div className="flex text-white text-[13px] gap-[2px]">
                       {/* Render stars */}
                       {[...Array(5)].map((_, i) => (

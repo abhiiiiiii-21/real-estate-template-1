@@ -151,11 +151,10 @@ const Hero = () => {
           </div>
 
           {/* ── House / Building ── */}
-          <div className="absolute left-0 right-0 z-[15] flex justify-center pointer-events-none" style={{ top: '59%' }}>
+          <div className="absolute left-0 right-0 z-[15] flex justify-center pointer-events-none max-md:top-[55%] top-[59%]">
             <div
               ref={houseRef}
-              className="will-change-transform"
-              style={{ width: 'min(100%, 1400px)' }}
+              className="will-change-transform max-md:w-[160%] max-md:shrink-0 max-md:max-w-none w-full max-w-[1400px]"
             >
               <Image
                 src="/Hero/house.webp"
@@ -172,8 +171,7 @@ const Hero = () => {
           {/* ── Cloud Left ── */}
           <div
             ref={cloudLeftRef}
-            className="absolute z-[20] pointer-events-none will-change-transform"
-            style={{ top: '25%', left: '-8%', width: '48%', maxWidth: '760px' }}
+            className="absolute z-[20] pointer-events-none will-change-transform max-md:top-[30%] top-[25%] max-md:w-[90%] w-[48%] max-w-[760px] -left-[8%] max-md:-left-[50%]"
           >
             <Image
               src="/Hero/cloud.webp"
@@ -188,8 +186,7 @@ const Hero = () => {
           {/* ── Cloud Right (mirrored) ── */}
           <div
             ref={cloudRightRef}
-            className="absolute z-[20] pointer-events-none will-change-transform"
-            style={{ top: '25%', right: '-8%', width: '48%', maxWidth: '760px' }}
+            className="absolute z-[20] pointer-events-none will-change-transform max-md:top-[30%] top-[25%] max-md:w-[90%] w-[48%] max-w-[760px] -right-[8%] max-md:-right-[50%]"
           >
             <div style={{ transform: 'scaleX(-1)' }}>
               <Image
@@ -206,9 +203,9 @@ const Hero = () => {
           {/* ── Smoke Effect ── */}
           <div
             ref={smokeRef}
-            className="absolute left-0 right-0 z-[22] pointer-events-none will-change-transform"
-            style={{ bottom: '-5%' }}
+            className="absolute left-0 right-0 z-[22] pointer-events-none flex justify-center will-change-transform max-md:bottom-[0%] bottom-[-5%]"
           >
+            <div className="max-md:w-[250%] max-md:shrink-0 max-md:max-w-none w-full">
             <Image
               src="/Hero/smoke.webp"
               alt=""
@@ -217,6 +214,7 @@ const Hero = () => {
               sizes="100vw"
               className="w-full h-auto"
             />
+            </div>
           </div>
 
           {/* ── Navbar ── */}
@@ -227,11 +225,10 @@ const Hero = () => {
           {/* ── Hero Content ── */}
           <div
             ref={contentRef}
-            className="relative z-[10] flex flex-col items-center text-center px-6 will-change-transform"
-            style={{ marginTop: '30vh' }}
+            className="relative z-[10] flex flex-col items-center text-center max-md:px-4 px-6 will-change-transform max-md:mt-[16vh] mt-[30vh]"
           >
             <h1
-              className="text-black mb-5 max-w-7xl text-8xl font-playfair-display font-semibold">
+              className="text-black mb-5 max-w-7xl max-md:text-[13vw] max-md:leading-[1.1] text-8xl font-playfair-display font-semibold">
               <div className="overflow-hidden py-2 -my-2">
                 <span className="hero-title-line block">Find What Moves You</span>
               </div>
@@ -241,7 +238,7 @@ const Hero = () => {
               className="text-black text-base md:text-lg mb-8 max-w-xl tracking-[-0.01em] font-inter">
               <div className="overflow-hidden py-1 -my-1">
                 <span className="hero-desc-line block">
-                  Expert agents. Real guidance. A clear path to find what&apos;s next.
+                  Expert agents.<br className="hidden max-md:block" /> Real guidance.<br className="hidden max-md:block" /> A clear path to find what&apos;s next.
                 </span>
               </div>
             </div>

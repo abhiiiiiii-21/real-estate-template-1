@@ -150,24 +150,13 @@ const Procedure = () => {
   return (
     <section
       ref={sectionRef}
-      style={{
-        background: '#fff',
-        padding: '120px 0 140px',
-      }}
+      className="bg-white max-md:pt-[80px] max-md:pb-[80px] pt-[120px] pb-[140px]"
     >
       <div
-        style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 48px',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1.4fr',
-          gap: '80px',
-          alignItems: 'start',
-        }}
+        className="max-w-[1400px] mx-auto max-md:px-5 px-[48px] grid max-md:grid-cols-1 grid-cols-[1fr_1.4fr] max-md:gap-12 gap-[80px] items-start"
       >
         {/* ── Left Column: Heading + CTA ── */}
-        <div style={{ position: 'sticky', top: '120px' }}>
+        <div className="max-md:relative max-md:top-0 sticky top-[120px]">
           <h2
             ref={headingRef}
             className='font-playfair-display'
@@ -249,11 +238,8 @@ const Procedure = () => {
                   }}
                 />
                 <div
-                  style={{
-                    display: 'flex',
-                    gap: '32px',
-                    alignItems: 'flex-start',
-                  }}>
+                  className="flex max-md:gap-5 gap-[32px] items-start"
+                >
                   {/* Step number */}
                   <span
                     className="step-number"
